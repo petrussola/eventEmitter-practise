@@ -1,6 +1,11 @@
+// define emitter
 class EventEmitter {
 	constructor() {
-		this.events = [];
+		this.events = {};
+		this.init = function () {
+			console.log('You have created an event Emitter!');
+		};
+		this.init();
 	}
 
 	on(name, listener) {
@@ -10,6 +15,10 @@ class EventEmitter {
 		}
 
 		this.events[name].push(listener);
+		console.log(
+			`An event with name ${name} has been added\n\n. The this.events object is now:\n\n`
+		);
+		console.log(this.events);
 	}
 
 	removeListener(name, listenerToRemove) {
@@ -33,6 +42,16 @@ class EventEmitter {
 	}
 }
 
-const test = new EventEmitter();
+// use EventEmitter
+const myEmitter = new EventEmitter();
 
-test.print();
+const handler1 = (arg) => {
+	console.log('Was fired: ', arg);
+};
+
+myEmitter.on('testEvent', handler1);
+myEmitter.on('testEvent2', handler1);
+
+myEmitter.emit('testEvent', 'hey there');
+myEmitter.emit('testEvent', 'firing event again');
+myEmitter.emit('testEvent', 'and again');
