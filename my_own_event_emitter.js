@@ -24,8 +24,12 @@ class EventEmitter {
 
 	emit(name, data) {
 		if (!this.events[name]) {
-			throw new Error(`Can't emit an event. Event ${name} does not exist.`)
+			throw new Error(`Can't emit an event. Event ${name} does not exist.`);
 		}
+
+		this.events[name].forEach((cb) => {
+			cb(data);
+		});
 	}
 }
 
